@@ -21,7 +21,11 @@
         </header>
         <main role="main">
             <section class="jumbotron text-center">
+                // Data only from action
                 {{ dump(data) }}
+
+                // Global data
+                {{ dump(global) }}
             </section>
         </main>
         <footer class="text-muted">

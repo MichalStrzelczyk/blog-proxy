@@ -15,6 +15,10 @@ class ArticleController extends \Phalcon\Mvc\Controller {
      */
     public function initialize() {
         $this->apiService = $this->getDI()->get('Service\ApiClient');
+        $this->setGlobalViewData([
+            'conroller' => $this->router->getControllerName(),
+            'action' => $this->router->getActionName(),
+        ]);
     }
 
     /**
@@ -26,12 +30,8 @@ class ArticleController extends \Phalcon\Mvc\Controller {
 
         $data = $this->apiService->getArticles($limit, $offset);
 
-        $this->setData(
+        $this->setViewData(
             [
-                '__meta' => [
-                    'controller' => 'article',
-                    'action' => 'list',
-                ],
                 'articles' => $data['data'],
                 'paginator' => $data['meta']['paginator'],
             ]
@@ -48,15 +48,7 @@ class ArticleController extends \Phalcon\Mvc\Controller {
         $articleId = (int)$this->dispatcher->getParam('id');
 
         $article = $this->apiService->getArticle($articleId)['data'];
-        $this->setData(
-            [
-                '__meta' => [
-                    'controller' => 'article',
-                    'action' => 'read',
-                ],
-                'article' => $article,
-            ]
-        );
+        $this->setViewData(['article' => $article,]);
 
         $html = $this->view->render('index');
         $this->response->setContent($html);

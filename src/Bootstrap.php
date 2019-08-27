@@ -188,9 +188,11 @@ class Bootstrap {
      * @param \Phalcon\DiInterface $di
      */
     static protected function initializeView(\Phalcon\DiInterface $di) {
+        /** @var \Phalcon\Config $config */
+        $config = $di->get('config');
         $di->setShared(
             'view',
-            function () {
+            function () use ($config) {
                 $view = new \Phalcon\Mvc\View\Simple();
                 $view->setViewsDir(BASE_PATH . '/templates/');
                 $view->registerEngines(
@@ -198,6 +200,11 @@ class Bootstrap {
                         '.volt' => 'volt',
                     ]
                 );
+
+                // Inject all parameters from config
+                if (isset($config['view_parameters'])) {
+                    $view->global = $config['view_parameters']->toArray();
+                }
 
                 return $view;
             }
