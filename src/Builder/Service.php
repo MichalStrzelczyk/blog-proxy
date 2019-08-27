@@ -8,7 +8,7 @@ namespace Builder;
 $di->setShared(
     'Service\ApiClient',
     function () use ($di) {
-        $httpClient = new \Maleficarum\Client\Http\Rest\BasicClient($di->get('config')->api_url);
+        $httpClient = new \Maleficarum\Client\Http\Rest\BasicClient($di->get('config')->basic->api_url);
         $service = new \Service\ApiClient($httpClient);
 
         return $service;

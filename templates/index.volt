@@ -20,9 +20,9 @@
           </div>
         </header>
         <main role="main">
-         <section class="jumbotron text-center">
-            {{ content() }}
-        </section>
+            <section class="jumbotron text-center">
+                {{ dump(data) }}
+            </section>
         </main>
         <footer class="text-muted">
           <div class="container">

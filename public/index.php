@@ -13,10 +13,14 @@ define('CONFIG_PATH', realpath('../config'));
 define('VENDOR_PATH', realpath('../vendor'));
 define('SRC_PATH', realpath('../src'));
 
+
 // add vendor based autoloading
 require_once VENDOR_PATH . '/autoload.php';
 
 $di = new \Di();
-Initializer::initializeServices($di);
+Bootstrap::initializeServices($di);
+
 $app = new \Phalcon\Mvc\Application($di);
+$app->useImplicitView(false);
 $app->handle()->send();
+
