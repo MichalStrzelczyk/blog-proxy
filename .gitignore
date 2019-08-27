@@ -1,4 +1,4 @@
 /vendor/
-/config/local/
+/cache/*
 .idea
 composer.lock
